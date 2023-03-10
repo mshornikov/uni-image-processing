@@ -1,5 +1,4 @@
-export const grayscale = (pixels) => {
-
+export const grayscale = (pixels, brightness = 0) => {
     for (let i = 0; i < pixels.length; i += 4) {
         const redMultiplier = 0.3,
             greenMultiplier = 0.59,
@@ -9,8 +8,8 @@ export const grayscale = (pixels) => {
             greenValue = pixels[i + 1],
             blueValue = pixels[i + 2];
 
-        const gray = redMultiplier * redValue + greenMultiplier * greenValue + blueMultiplier * blueValue;
-
+        let gray = redMultiplier * redValue + greenMultiplier * greenValue + blueMultiplier * blueValue;
+        gray += brightness;
         [pixels[i], pixels[i + 1], pixels[i + 2]] = [gray, gray, gray];
     }
 }   

@@ -8,17 +8,19 @@
     <title>Image processing</title>
 </head>
 
-<body>
+<body style="margin: 0; padding: 0;">
     <main class="content">
         <h1>Обработка изображений</h1>
-        <article>
+        <article class="range">
             <header>
                 <h2>Grayscale</h2>
             </header>
             <div class="row">
-                <!-- <img src="./image.jpg" alt=""> -->
+                <!-- <img src="./image.jpg" alt="">  -->
                 <canvas class="canvas"></canvas>
             </div>
+            <div class="value1">0</div>
+            <input type="range" class="input1 " min=-255 max=255>
         </article>
     </main>
     <script type="module" src="/src/js/main.js"></script>
