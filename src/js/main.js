@@ -10,7 +10,7 @@ img2.src = './image.jpg'
 const canvas = document.querySelector('.canvas');
 const input = document.querySelector('.input1');
 const value1 = document.querySelector('.value1');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', {willReadFrequently: true});
 
 img.addEventListener('load', () => {
     canvas.width = img.width;
@@ -23,13 +23,9 @@ img.addEventListener('load', () => {
     input.addEventListener('input', (event) => {
         value1.textContent = event.target.value;
 
-        let copy = ctx.createImageData(scannedImage);
-        scannedImage.data.forEach((element, index) => {
-            copy.data[index] = scannedImage.data[index]; 
-        });
-        grayscale(copy.data, Number(event.target.value));
-        ctx.putImageData(copy, 0, 0);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        grayscale(scannedImage.data, Number(event.target.value));
+        ctx.putImageData(scannedImage, 0, 0);
     })
 })
-
-
