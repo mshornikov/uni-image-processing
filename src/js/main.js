@@ -4,9 +4,6 @@ import { grayscale  } from "./grayscale";
 const img = new Image();
 img.src = './image.jpg';
 
-const img2 = new Image();
-img2.src = './image.jpg'
-
 const canvas = document.querySelector('.canvas');
 const input = document.querySelector('.input1');
 const value1 = document.querySelector('.value1');
