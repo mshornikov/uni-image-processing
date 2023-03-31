@@ -25,8 +25,8 @@ img.addEventListener('load', () => {
         grayscale(scannedImage.data, Number(event.target.value));
         ctx.putImageData(scannedImage, 0, 0);
     })
-})
+});
 
 document.querySelector('.button').addEventListener('click', () => {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-})
+});
