@@ -10,16 +10,17 @@
 
 <body style="margin: 0; padding: 0;">
     <main class="content">
-        <h1>Обработка изображений</h1>
-        <article class="range">
-            <header>
-                <h2>Grayscale</h2>
-            </header>
-            <canvas class="canvas"></canvas>
+        <section class="image-container">
+            <canvas class="image"></canvas>
+        </section>
+        <section class="controls">
+            <h1 class="controls__header">Controls</h1>
+            <button class="button" id="original-button">Оригинал</button>
+            <button class="button" id="grayscale-button">Grayscale</button>
             <div class="value1">0</div>
-            <input type="range" class="input1 " min=-255 max=255>
-        </article>
-        <button class="button">Обнулить</button>
+            <input type="range" class="input1" min=-255 max=255>
+            <button class="button" id="negative-button">Negative</button>
+        </section>
     </main>
     <script type="module" src="./src/js/main.js"></script>
 </body>
