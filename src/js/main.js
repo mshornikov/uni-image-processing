@@ -10,8 +10,8 @@ originalImg.src = '/public/image.jpg';
 const changedImg = new Image();
 
 const canvas = document.querySelector('.image');
-const input = document.querySelector('.input1');
-const value1 = document.querySelector('.value1');
+const brightnessInput = document.querySelector('.brightness-input');
+const brightnessValue = document.querySelector('.brightness-value');
 
 const ctx = canvas.getContext('2d', {willReadFrequently: true});
 
@@ -20,8 +20,8 @@ originalImg.addEventListener('load', () => {
     canvas.height = originalImg.height;
     ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
     
-    input.addEventListener('input', (event) => {
-        value1.textContent = event.target.value;
+    brightnessInput.addEventListener('input', (event) => {
+        brightnessValue.textContent = event.target.value;
         
         ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
         let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -31,8 +31,8 @@ originalImg.addEventListener('load', () => {
 });
 
 document.querySelector('#original-button').addEventListener('click', () => {
-    input.value = 0;
-    value1.textContent = 0;
+    brightnessInput.value = 0;
+    brightnessValue.textContent = 0;
     changedImg.src = originalImg.src;
     ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
 });
