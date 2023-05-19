@@ -1,34 +1,59 @@
 export const histogram = pixels => {
-	// let colors = new Array(255).fill(0);
+  let data = new Array(255).fill(0);
+    for (let i = 0; i < pixels.length; i += 4) {
+        data[pixels[i]] += 1;
+  }
+    // Определяем размеры графика
+    const width = 260;
+    const height = 150;
+    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
 
-    // for (let i = 0; i < pixels.length; i += 4) {
-	// 	colors[pixels[i]] += 1;
-	// }
-	const canvas = document.querySelector('.canvas');
 
 
-	const histogram = d3.histogram()
-        .value(d => d)
-        .domain([0, 255])
-        .thresholds(256)
-        (pixels);
-      const xScale = d3.scaleLinear()
-        .domain([0, 255])
-        .range([0, canvas.width]);
-      const yScale = d3.scaleLinear()
-        .domain([0, d3.max(histogram, d => d.length)])
-        .range([canvas.height, 0]);
-      const barWidth = canvas.width / histogram.length;
-      const bars = d3.select(canvas)
-        .selectAll('rect')
-        .data(histogram)
-        .enter()
-        .append('rect')
-        .attr('x', (d, i) => xScale(i))
-        .attr('y', d => yScale(d.length))
-        .attr('width', barWidth)
-        .attr('height', d => canvas.height - yScale(d.length))
-        .attr('fill', 'steelblue');
+    // Создаем контейнер svg
+    const svg = d3.select("#histogram")
+                  .attr("width", width)
+                  .attr("height", height);
 
-	// console.log(colors);
+    svg.selectAll("*").remove();
+
+
+    // Создаем группу для гистограммы
+    const histogram = svg.append("g")
+                         .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    // Создаем шкалу для оси x
+    const xScale = d3.scaleLinear()
+                     .domain([0, 300])
+                     .range([0, innerWidth]);
+
+    // Создаем логарифмическую шкалу для оси y
+    const yScale = d3.scaleLog()
+                     .domain([1, d3.max(data)])
+                     .range([innerHeight, 0]);
+
+    // Создаем гистограмму
+    histogram.selectAll("rect")
+             .data(data)
+             .enter()
+             .append("rect")
+             .attr("x", (d, i) => xScale(i))
+             .attr("y", (d) => yScale(d))
+             .attr("width", xScale(1))
+             .attr("height", (d) => innerHeight - yScale(d))
+             .attr("fill", "steelblue");
+
+    // // Создаем ось x
+    // const xAxis = d3.axisBottom(xScale);
+    // histogram.append("g")
+    //          .attr("transform", `translate(0, ${innerHeight})`)
+    //          .call(xAxis);
+
+    // // Создаем ось y
+    // const yAxis = d3.axisLeft(yScale).ticks(5, ".0s");
+    // histogram.append("g")
+    //          .call(yAxis);
+    
 }

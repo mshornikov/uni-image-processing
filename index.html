@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <title>Image processing</title>
 </head>
 
@@ -14,6 +15,8 @@
             <canvas class="image"></canvas>
         </section>
         <section class="controls">
+            <h2 class="controls__group-name">Гистограмма</h2>
+            <svg id="histogram" width="260" height="150"></svg>
             <h1 class="controls__header">Controls</h1>
             <button class="button" id="original-button">Оригинал</button>
             <div class="controls__group">

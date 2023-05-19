@@ -6,7 +6,7 @@ import { negative } from './negative';
 import { binarization } from './binarization';
 
 const originalImg = new Image();
-originalImg.src = '/public/moscow.jpeg';
+originalImg.src = '/public/image.jpg';
 
 const changedImg = new Image();
 
@@ -20,7 +20,9 @@ originalImg.addEventListener('load', () => {
     canvas.width = originalImg.width;
     canvas.height = originalImg.height;
     ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
-    
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    histogram(scannedImage.data);
+
     brightnessInput.addEventListener('input', (event) => {
         brightnessValue.textContent = event.target.value;
         
@@ -28,6 +30,8 @@ originalImg.addEventListener('load', () => {
         let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
         adjustBrightness(scannedImage.data, Number(event.target.value));
         ctx.putImageData(scannedImage, 0, 0);
+        scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        histogram(scannedImage.data);
     })
 });
 
@@ -47,6 +51,8 @@ document.querySelector('#grayscale-button').addEventListener('click', () => {
 
     grayscale(scannedImage.data);
     ctx.putImageData(scannedImage, 0, 0);
+    histogram(scannedImage.data);
+
     changedImg.src = canvas.toDataURL('image/jpeg');
 })
 
@@ -54,6 +60,8 @@ document.querySelector('#negative-button').addEventListener('click', () => {
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
     negative(scannedImage.data, 0);
     ctx.putImageData(scannedImage, 0, 0);
+    scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    histogram(scannedImage.data);
     changedImg.src = canvas.toDataURL('image/jpeg');
 })
 
@@ -64,6 +72,8 @@ negativeInput.addEventListener('input', (e) => {
     ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
     negative(scannedImage.data, Number(e.target.value));
+
+    histogram(scannedImage.data);
     ctx.putImageData(scannedImage, 0, 0);
 })
 
@@ -74,5 +84,6 @@ binarizationInput.addEventListener('input', (e) => {
     ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
     binarization(scannedImage.data, Number(e.target.value));
+    histogram(scannedImage.data);
     ctx.putImageData(scannedImage, 0, 0);
 })
