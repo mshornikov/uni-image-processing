@@ -5,7 +5,7 @@ export const histogram = pixels => {
         data[brightness / 3] += 1;
     } 
     // Определяем размеры графика
-    const width = 260;
+    const width = 245;
     const height = 150;
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const innerWidth = width - margin.left - margin.right;
@@ -13,19 +13,16 @@ export const histogram = pixels => {
 
     // Создаем контейнер svg
     const svg = d3.select("#histogram")
-                  .attr("width", width)
-                  .attr("height", height);
 
     svg.selectAll("*").remove();
 
-
     // Создаем группу для гистограммы
     const histogram = svg.append("g")
-                         .attr("transform", `translate(${margin.left}, ${margin.top})`);
+                        //  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     // Создаем шкалу для оси x
     const xScale = d3.scaleLinear()
-                     .domain([0, 260])
+                     .domain([0, 256])
                      .range([0, innerWidth]);
 
     // Создаем логарифмическую шкалу для оси y
@@ -40,7 +37,7 @@ export const histogram = pixels => {
              .append("rect")
              .attr("x", (d, i) => xScale(i))
              .attr("y", (d) => yScale(d))
-             .attr("width", xScale(1))
+             .attr("width", xScale(0.5))
              .attr("height", (d) => innerHeight - yScale(d))
              .attr("fill", "blueviolet");
 
@@ -54,5 +51,4 @@ export const histogram = pixels => {
     // const yAxis = d3.axisLeft(yScale).ticks(5, ".0s");
     // histogram.append("g")
     //          .call(yAxis);
-    console.log(data);
 }
