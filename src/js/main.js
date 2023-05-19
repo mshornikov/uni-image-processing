@@ -8,6 +8,7 @@ import { contrastInc, contrastDec } from './contrast';
 import { gamma } from './gamma';
 import { coloring } from './coloring';
 import { quantization  } from './quantization';
+import { solarization } from './solarization';
 
 const originalImg = new Image();
 originalImg.src = '/public/image.jpg';
@@ -192,6 +193,15 @@ quantizationInput.addEventListener('input', (e) => {
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
     quantization(scannedImage.data, Number(e.target.value));
+    ctx.putImageData(scannedImage, 0, 0);
+    histogram(scannedImage.data);
+})
+
+const solarizationButton = document.querySelector('#solarization-button');
+solarizationButton.addEventListener('click', () => {
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    solarization(scannedImage.data);
     ctx.putImageData(scannedImage, 0, 0);
     histogram(scannedImage.data);
 })
