@@ -1,10 +1,11 @@
 export const histogram = pixels => {
   let data = new Array(256).fill(0);
-    for (let i = 0; i < pixels.length; i += 4) {
-        data[pixels[i]] += 1;
-  }
+    for (let i = 0; i <= pixels.length; i += 4) {
+        const brightness = pixels[i] + pixels[i + 1] + pixels[i + 2];
+        data[brightness / 3] += 1;
+    } 
     // Определяем размеры графика
-    const width = 300;
+    const width = 260;
     const height = 150;
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const innerWidth = width - margin.left - margin.right;
@@ -24,7 +25,7 @@ export const histogram = pixels => {
 
     // Создаем шкалу для оси x
     const xScale = d3.scaleLinear()
-                     .domain([0, 300])
+                     .domain([0, 260])
                      .range([0, innerWidth]);
 
     // Создаем логарифмическую шкалу для оси y

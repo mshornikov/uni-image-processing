@@ -42,7 +42,7 @@ body {
     background-color: darkslateblue;
     border-radius: 10px 0 0 10px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
 
 .controls__header {
