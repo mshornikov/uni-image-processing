@@ -3,9 +3,10 @@ import { grayscale } from './grayscale';
 import { adjustBrightness } from './adjustBrightness';
 import { histogram } from './histogram';
 import { negative } from './negative';
+import { binarization } from './binarization';
 
 const originalImg = new Image();
-originalImg.src = '/public/image.jpg';
+originalImg.src = '/public/moscow.jpeg';
 
 const changedImg = new Image();
 
@@ -35,6 +36,8 @@ document.querySelector('#original-button').addEventListener('click', () => {
     brightnessValue.textContent = 0;
     negativeInput.value = 0;
     negativeValue.textContent = 0;
+    binarizationInput.value = 0;
+    binarizationValue.textContent = 0;
     changedImg.src = originalImg.src;
     ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
 });
@@ -47,8 +50,6 @@ document.querySelector('#grayscale-button').addEventListener('click', () => {
     changedImg.src = canvas.toDataURL('image/jpeg');
 })
 
-const negativeInput = document.querySelector('.negative-input');
-const negativeValue = document.querySelector('.negative-value');
 document.querySelector('#negative-button').addEventListener('click', () => {
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
     negative(scannedImage.data, 0);
@@ -56,11 +57,22 @@ document.querySelector('#negative-button').addEventListener('click', () => {
     changedImg.src = canvas.toDataURL('image/jpeg');
 })
 
+const negativeInput = document.querySelector('.negative-input');
+const negativeValue = document.querySelector('.negative-value');
 negativeInput.addEventListener('input', (e) => {
     negativeValue.textContent = e.target.value;
     ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
     negative(scannedImage.data, Number(e.target.value));
     ctx.putImageData(scannedImage, 0, 0);
-    // changedImg.src = canvas.toDataURL('image/jpeg');
+})
+
+const binarizationInput = document.querySelector('.binarization-input');
+const binarizationValue = document.querySelector('.binarization-value');
+binarizationInput.addEventListener('input', (e) => {
+    binarizationValue.textContent = e.target.value;
+    ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    binarization(scannedImage.data, Number(e.target.value));
+    ctx.putImageData(scannedImage, 0, 0);
 })
