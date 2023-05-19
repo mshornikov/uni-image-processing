@@ -5,6 +5,7 @@ import { histogram } from './histogram';
 import { negative } from './negative';
 import { binarization } from './binarization';
 import { contrastInc, contrastDec } from './contrast';
+import { gamma } from './gamma';
 
 const originalImg = new Image();
 originalImg.src = '/public/image.jpg';
@@ -152,4 +153,18 @@ contrastDownButton.addEventListener('click', () => {
     histogram(scannedImage.data);
 
     changedImg.src = canvas.toDataURL('image/jpeg');
+})
+
+const gammaValue = document.querySelector('.gamma-value');
+const gammaInput = document.querySelector('.gamma-input');
+
+gammaInput.addEventListener('input', (e) => {
+    gammaValue.textContent = e.target.value;
+
+    ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    gamma(scannedImage.data, Number(e.target.value));
+    ctx.putImageData(scannedImage, 0, 0);
+    histogram(scannedImage.data);
 })
