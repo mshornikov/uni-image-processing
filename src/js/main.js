@@ -6,6 +6,7 @@ import { negative } from './negative';
 import { binarization } from './binarization';
 import { contrastInc, contrastDec } from './contrast';
 import { gamma } from './gamma';
+import { coloring } from './coloring';
 
 const originalImg = new Image();
 originalImg.src = '/public/image.jpg';
@@ -167,4 +168,15 @@ gammaInput.addEventListener('input', (e) => {
     gamma(scannedImage.data, Number(e.target.value));
     ctx.putImageData(scannedImage, 0, 0);
     histogram(scannedImage.data);
+})
+
+const coloringButton = document.querySelector('#coloring-button');
+coloringButton.addEventListener('click', (e) => {
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    coloring(scannedImage.data);
+    ctx.putImageData(scannedImage, 0, 0);
+    histogram(scannedImage.data);
+
+    changedImg.src = canvas.toDataURL('image/jpeg');
 })
