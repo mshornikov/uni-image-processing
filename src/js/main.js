@@ -33,6 +33,8 @@ originalImg.addEventListener('load', () => {
 document.querySelector('#original-button').addEventListener('click', () => {
     brightnessInput.value = 0;
     brightnessValue.textContent = 0;
+    negativeInput.value = 0;
+    negativeValue.textContent = 0;
     changedImg.src = originalImg.src;
     ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
 });
@@ -45,10 +47,20 @@ document.querySelector('#grayscale-button').addEventListener('click', () => {
     changedImg.src = canvas.toDataURL('image/jpeg');
 })
 
+const negativeInput = document.querySelector('.negative-input');
+const negativeValue = document.querySelector('.negative-value');
 document.querySelector('#negative-button').addEventListener('click', () => {
     let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-    negative(scannedImage.data);
+    negative(scannedImage.data, 0);
     ctx.putImageData(scannedImage, 0, 0);
     changedImg.src = canvas.toDataURL('image/jpeg');
+})
+
+negativeInput.addEventListener('input', (e) => {
+    negativeValue.textContent = e.target.value;
+    ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    negative(scannedImage.data, Number(e.target.value));
+    ctx.putImageData(scannedImage, 0, 0);
+    // changedImg.src = canvas.toDataURL('image/jpeg');
 })
