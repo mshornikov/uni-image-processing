@@ -7,6 +7,7 @@ import { binarization } from './binarization';
 import { contrastInc, contrastDec } from './contrast';
 import { gamma } from './gamma';
 import { coloring } from './coloring';
+import { quantization  } from './quantization';
 
 const originalImg = new Image();
 originalImg.src = '/public/image.jpg';
@@ -179,4 +180,18 @@ coloringButton.addEventListener('click', (e) => {
     histogram(scannedImage.data);
 
     changedImg.src = canvas.toDataURL('image/jpeg');
+})
+
+const quantizationInput = document.querySelector('.quantization-input');
+const quantizationValue = document.querySelector('.quantization-value');
+
+quantizationInput.addEventListener('input', (e) => {
+    quantizationValue.textContent = e.target.value;
+
+    ctx.drawImage(changedImg.src ? changedImg : originalImg, 0, 0, canvas.width, canvas.height);
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    quantization(scannedImage.data, Number(e.target.value));
+    ctx.putImageData(scannedImage, 0, 0);
+    histogram(scannedImage.data);
 })
