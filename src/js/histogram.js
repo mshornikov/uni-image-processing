@@ -1,16 +1,14 @@
 export const histogram = pixels => {
-  let data = new Array(255).fill(0);
+  let data = new Array(256).fill(0);
     for (let i = 0; i < pixels.length; i += 4) {
         data[pixels[i]] += 1;
   }
     // Определяем размеры графика
-    const width = 260;
+    const width = 300;
     const height = 150;
-    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
-
-
 
     // Создаем контейнер svg
     const svg = d3.select("#histogram")
@@ -43,7 +41,7 @@ export const histogram = pixels => {
              .attr("y", (d) => yScale(d))
              .attr("width", xScale(1))
              .attr("height", (d) => innerHeight - yScale(d))
-             .attr("fill", "steelblue");
+             .attr("fill", "blueviolet");
 
     // // Создаем ось x
     // const xAxis = d3.axisBottom(xScale);
@@ -55,5 +53,5 @@ export const histogram = pixels => {
     // const yAxis = d3.axisLeft(yScale).ticks(5, ".0s");
     // histogram.append("g")
     //          .call(yAxis);
-    
+    console.log(data);
 }

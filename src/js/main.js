@@ -6,7 +6,7 @@ import { negative } from './negative';
 import { binarization } from './binarization';
 
 const originalImg = new Image();
-originalImg.src = '/public/image.jpg';
+originalImg.src = '/public/moscow.jpeg';
 
 const changedImg = new Image();
 
