@@ -9,6 +9,8 @@ import { gamma } from './gamma';
 import { coloring } from './coloring';
 import { quantization  } from './quantization';
 import { solarization } from './solarization';
+import { lowPassFilter } from './lowPassFilter';
+import { highPassFilter } from './highPassFilter';
 
 const originalImg = new Image();
 originalImg.src = '/public/image.jpg';
@@ -205,3 +207,28 @@ solarizationButton.addEventListener('click', () => {
     ctx.putImageData(scannedImage, 0, 0);
     histogram(scannedImage.data);
 })
+
+const lowPassFilterButton = document.querySelector('#low-pass-filter-button');
+lowPassFilterButton.addEventListener('click', () => {
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    
+    
+    ctx.putImageData(lowPassFilter(scannedImage, 1), 0, 0);
+    scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    histogram(scannedImage.data);
+});
+
+const highPassFilterButton = document.querySelector('#high-pass-filter-button')
+highPassFilterButton.addEventListener('click', () => {
+    let scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    
+    
+    ctx.putImageData(highPassFilter(scannedImage), 0, 0);
+    scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    histogram(scannedImage.data);
+});
+
+const medianFilterButton = document.querySelector('#median-filter-button');
+medianFilterButton.addEventListener('click', () => {
+    
+});
