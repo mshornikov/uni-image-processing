@@ -1,19 +1,18 @@
-import '../style.css';
-import { grayscale } from './grayscale';
-import { adjustBrightness } from './adjustBrightness';
-import { histogram } from './histogram';
-import { negative } from './negative';
-import { binarization } from './binarization';
-import { contrastInc, contrastDec } from './contrast';
-import { gamma } from './gamma';
-import { coloring } from './coloring';
-import { quantization  } from './quantization';
-import { solarization } from './solarization';
-import { lowPassFilter } from './lowPassFilter';
-import { highPassFilter } from './highPassFilter';
+import { grayscale } from './grayscale.js';
+import { adjustBrightness } from './adjustBrightness.js';
+import { histogram } from './histogram.js';
+import { negative } from './negative.js';
+import { binarization } from './binarization.js';
+import { contrastInc, contrastDec } from './contrast.js';
+import { gamma } from './gamma.js';
+import { coloring } from './coloring.js';
+import { quantization  } from './quantization.js';
+import { solarization } from './solarization.js';
+import { lowPassFilter } from './lowPassFilter.js';
+import { highPassFilter } from './highPassFilter.js';
 
 const originalImg = new Image();
-originalImg.src = '/public/image.jpg';
+originalImg.src = '../../../public/image.jpg';
 
 const changedImg = new Image();
 
